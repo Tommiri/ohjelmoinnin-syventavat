@@ -16,6 +16,7 @@ public:
     string getCategory() const;
     void setDescription(const string &aDescription);
     string getDescription() const;
+    void printEvent() const;
 private:
     string timestamp;
     string category;

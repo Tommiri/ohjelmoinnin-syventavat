@@ -6,7 +6,7 @@
 int main() {
     // Test Event class
     auto event = Event("2023-01-15", "test", "Testing Event class functionality");
-    std::cout << event.getTimestamp() << std::endl;
+    event.printEvent();
 
     // TODO: Get the current date
 
