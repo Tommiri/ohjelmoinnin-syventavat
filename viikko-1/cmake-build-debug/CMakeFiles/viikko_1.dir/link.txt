@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/viikko_1.dir/src/days.cpp.o CMakeFiles/viikko_1.dir/src/Event.cpp.o -o viikko_1 
