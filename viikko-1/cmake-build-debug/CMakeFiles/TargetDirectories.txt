@@ -1,3 +1,0 @@
-/home/tommi/School/ohjelmoinnin-syventavat/viikko-1/cmake-build-debug/CMakeFiles/viikko_1.dir
-/home/tommi/School/ohjelmoinnin-syventavat/viikko-1/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/tommi/School/ohjelmoinnin-syventavat/viikko-1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
