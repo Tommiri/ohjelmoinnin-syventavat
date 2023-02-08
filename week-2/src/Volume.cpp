@@ -16,8 +16,8 @@ int Volume::getVolume() const
 void Volume::setVolume(const int &aVolume)
 {
     if(aVolume < minValue || aVolume > maxValue) {
-        // If isClamping == true, no need to throw exception.
-        if (!isClamping)
+        // If clamping == true, no need to throw exception.
+        if (!clamping)
         {
             std::string errorString{"Volume must be between " + std::to_string(minValue) + " and " + std::to_string(maxValue)};
             throw std::invalid_argument(errorString);
@@ -31,12 +31,12 @@ void Volume::setVolume(const int &aVolume)
     volume = aVolume;
 }
 
-bool Volume::getClamping() const
+bool Volume::isClamping() const
 {
-    return isClamping;
+    return clamping;
 }
 
 void Volume::setClamping(const bool &aClamping)
 {
-    isClamping = aClamping;
+    clamping = aClamping;
 }
