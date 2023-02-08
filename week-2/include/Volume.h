@@ -5,7 +5,7 @@ class Volume
 public:
     // Constructors & destructor
     Volume(const int &aVolume, const bool &aClamping);
-    Volume(): volume(defaultValue), isClamping(false){};
+    Volume(): volume(defaultValue), clamping(false){};
     ~Volume() = default;
 
     // Volume methods
@@ -13,7 +13,7 @@ public:
     void setVolume(const int& aVolume);
 
     // Clamping methods
-    bool getClamping() const;
+    bool isClamping() const;
     void setClamping(const bool &aClamping);
 
 private:
@@ -21,5 +21,5 @@ private:
     static const int minValue{0};
     static const int maxValue{100};
     int volume{};
-    bool isClamping{};
+    bool clamping{};
 };
