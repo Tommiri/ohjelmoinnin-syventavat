@@ -40,7 +40,7 @@ public class Main extends Application {
         grid.addRow(row, dateLabel, dateField);
         grid.addRow(++row, categoryLabel, categoryField);
         grid.addRow(++row, descriptionLabel, descriptionField);
-        grid.addRow(++row, addButton);
+        grid.add(addButton, 1, ++row);
 
         Scene scene = new Scene(grid, 400, 300);
         primaryStage.setScene(scene);
