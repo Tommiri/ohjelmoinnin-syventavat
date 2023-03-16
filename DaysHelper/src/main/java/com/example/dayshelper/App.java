@@ -1,22 +1,51 @@
-package addEvent;
+package com.example.dayshelper;
 
 import javafx.application.Application;
+import java.nio.file.Path;
+import java.util.List;
+
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class App extends Application {
+
+    private DatePicker datePicker;
+
+    private ComboBox<String> categoryPicker;
+
+    private TextField descriptionField;
+
+    private Button addButton;
+
+    private EventManager eventManager;
+
+    @Override
+    public void init() throws Exception {
+        this.eventManager = EventManager.getInstance();
+
+        Path eventsPath = eventManager.getEventsPath();
+        boolean success = eventManager.loadEvents(eventsPath);
+
+        this.datePicker = new DatePicker();
+
+        this.categoryPicker = new ComboBox<>();
+        this.categoryPicker.setEditable(true);
+
+        List<String> categories = eventManager.getCategories();
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Days Helper");
 
         GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(5);
-        grid.setAlignment(Pos.CENTER);
 
         // Date label and input
         Label dateLabel = new Label("Date");
@@ -24,7 +53,7 @@ public class Main extends Application {
 
         // Category label and input
         Label categoryLabel = new Label("Category");
-        ComboBox<String> categoryField = new ComboBox<String>();
+        ComboBox<String> categoryField = new ComboBox<>();
         categoryField.setEditable(true);
         categoryField.getItems().addAll("Choice 1", "Choice 2", "Choice 3");
 
@@ -41,6 +70,7 @@ public class Main extends Application {
         grid.addRow(++row, categoryLabel, categoryField);
         grid.addRow(++row, descriptionLabel, descriptionField);
         grid.add(addButton, 1, ++row);
+        GridPane.setHalignment(addButton, HPos.CENTER);
 
         Scene scene = new Scene(grid, 400, 300);
         primaryStage.setScene(scene);
