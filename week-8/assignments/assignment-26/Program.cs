@@ -55,12 +55,13 @@ public class Program
 
         Console.WriteLine("\nAll events in the history of the EU");
         Console.WriteLine("------------------------------------");
+        Console.WriteLine($"Number of events: {allEvents.Count}\n");
         foreach (var group in eventsGroupedByDate)
         {
-            Console.WriteLine($"Events from {group.Key}");
+            Console.WriteLine($"Events on {group.Key}");
             foreach (var e in group)
             {
-                Console.WriteLine($"\t{CountryManager.Instance.GetCountryByCode(e.Code)?.Name} {e.Kind}");
+                Console.WriteLine($"\t* {CountryManager.Instance.GetCountryByCode(e.Code)?.Name} {e.Kind}");
             }
         }
     }
