@@ -5,6 +5,9 @@ import com.beust.jcommander.Parameters;
 
 import java.time.LocalDate;
 
+/**
+ * Command for adding events
+ */
 @Parameters(commandNames = "add", commandDescription = "Add new events")
 public class CommandAdd extends CommandBase {
     @Parameter(names = "--date", description = "Specify date for new event", converter =

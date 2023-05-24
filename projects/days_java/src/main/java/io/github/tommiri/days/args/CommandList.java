@@ -1,11 +1,15 @@
 package io.github.tommiri.days.args;
 
 import com.beust.jcommander.Parameter;
+import com.beust.jcommander.ParameterException;
 import com.beust.jcommander.Parameters;
 
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Command for listing events
+ */
 @Parameters(commandNames = "list", commandDescription = "List events")
 public class CommandList extends CommandBase {
     @Parameter(names = "--today", description = "List events happening today")
@@ -18,8 +22,19 @@ public class CommandList extends CommandBase {
     public LocalDate date;
     @Parameter(names = "--categories", description = "List events from specified categories")
     public List<String> categories;
-    @Parameter(names = "--exclude", description = "List events excluding ones fitting specified parameters")
+    @Parameter(names = "--exclude", description = "Exclude specified categories")
     public boolean exclude;
     @Parameter(names = "--no-category", description = "List events with no category")
     public boolean no_category;
+
+    /**
+     * Method for validating user input for list command
+     *
+     * @throws ParameterException in case user tries to exclude without specifying categories
+     */
+    public void validateOptions() throws ParameterException {
+        if (exclude && categories == null) {
+            throw new ParameterException("Cannot use \"--exclude\" without \"--categories\"!");
+        }
+    }
 }

@@ -2,14 +2,15 @@ package io.github.tommiri.days.event;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Objects;
 
 /**
  * Represents an event.
  */
 public class Event implements Comparable<Event> {
-    private LocalDate date;
-    private String category;
-    private String description;
+    private final LocalDate date;
+    private final String category;
+    private final String description;
 
     /**
      * Constructs an event with the given date, category, and description.
@@ -96,9 +97,12 @@ public class Event implements Comparable<Event> {
      */
     @Override
     public String toString() {
+        // Omit braces from string event has no category
+        String categoryString = !Objects.equals(this.category, "") ? " (" + this.category + ")" : "";
+
         return this.date + ": "
                 + this.description
-                + " (" + this.category + ")";
+                + categoryString;
     }
 
     // Comparable<T> implementation:
@@ -111,5 +115,15 @@ public class Event implements Comparable<Event> {
      */
     public int compareTo(Event other) {
         return this.date.compareTo(other.date);
+    }
+
+    /**
+     * Compares this event's date to given date.
+     *
+     * @param date date to compare to
+     * @return whatever compareTo returns
+     */
+    public int compareTo(LocalDate date) {
+        return this.date.compareTo(date);
     }
 }

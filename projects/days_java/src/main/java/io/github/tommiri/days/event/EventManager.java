@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
@@ -43,6 +44,27 @@ public class EventManager {
             instance = new EventManager();
         }
         return instance;
+    }
+
+    /**
+     * Prints given list of events
+     *
+     * @param events list of events to print
+     */
+    public static void printEvents(List<Event> events) {
+        LocalDate today = LocalDate.now();
+
+        if (events.isEmpty()) {
+            System.out.println("No events found!");
+        } else {
+            for (Event event : events) {
+                System.out.print(event + " -- ");
+
+                Period difference = Period.between(event.getDate(), today);
+
+                System.out.println(Event.getDifferenceString(difference));
+            }
+        }
     }
 
     /**
@@ -145,6 +167,10 @@ public class EventManager {
             return true;
         }
 
+        // Sort events on save so added or deleted events don't just get
+        // appended to the end
+        Collections.sort(this.events);
+
         try {
             Writer writer = Files.newBufferedWriter(
                     eventsPath,
@@ -187,12 +213,40 @@ public class EventManager {
     }
 
     /**
-     * Gets the list of events.
+     * Gets a sorted list of events.
      *
      * @return the event list
      */
     public List<Event> getEvents() {
         return this.events;
+    }
+
+    /**
+     * Inserts new event into existing event list.
+     *
+     * @param event event to insert
+     */
+    public void insertEvent(Event event) {
+        this.events.add(event);
+        if (!this.saveEvents(this.getEventsPath())) {
+            System.err.println("ERROR: Failed to save events to file!");
+            System.exit(-1);
+        }
+        System.out.println("Successfully added new event!");
+    }
+
+    /**
+     * Replaces existing events with given events.
+     *
+     * @param events events to replace existing events with
+     */
+    public void replaceEvents(List<Event> events) {
+        this.events = events;
+        if (!this.saveEvents(this.getEventsPath())) {
+            System.err.println("ERROR: Failed to save events to file!");
+            System.exit(-1);
+        }
+        System.out.println("Successfully removed event(s)!");
     }
 
     /**
